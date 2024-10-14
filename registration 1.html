@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration | RentMyCaravan.io</title>
+    <link rel="stylesheet" href="./styles.css">
+    <style>
+        .error-message {
+            color: red;
+            font-size: 0.8em;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Header content -->
+        <nav>
+            <!-- Navigation links -->
+        </nav>
+    </header>
+    <main>
+        <section id="registration-form">
+            <h2>User Registration</h2>
+            <p>Please enter your details here</p>
+            <form action="registration.php" method="post" onsubmit="return validateForm()">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" placeholder="Enter MR, Mrs, Miss, Dr, etc." required>
+                <div id="title-error" class="error-message hidden"></div>
+
+                <label for="fname">First name:</label>
+                <input type="text" id="fname" name="fname" placeholder="Enter your First Name" required>
+                <div id="fname-error" class="error-message hidden"></div>
+
+                <label for="lname">Last name:</label>
+                <input type="text" id="lname" name="lname" placeholder="Enter your last name" required>
+                <div id="lname-error" class="error-message hidden"></div>
+
+                <!-- Add labels and input fields for other form fields -->
+                <!-- Add input fields for other form fields -->
+
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Your Username must be at least 5 characters long" required>
+                <div id="username-error" class="error-message hidden"></div>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Your Password requires at least one each of a-z, A-Z, and 0-9." required>
+                <div id="password-error" class="error-message hidden"></div>
+
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Your Confirm Password must match your Password" required>
+                <div id="confirm-password-error" class="error-message hidden"></div>
+
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" placeholder="Enter your house number and street name" required>
+                <div id="address-error" class="error-message hidden"></div>
+
+                <label for="postcode">Postcode:</label>
+                <input type="text" id="postcode" name="postcode" placeholder="Enter your house postcode" required>
+                <div id="postcode-error" class="error-message hidden"></div>
+
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" placeholder="Enter your city" required>
+                <div id="city-error" class="error-message hidden"></div>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Your Email requires at least one . and @" required>
+                <div id="email-error" class="error-message hidden"></div>
+
+                <button type="submit" style="margin-right: 20px;">Register</button>
+                <button type="button" onclick="goToWelcomePage()">Back</button>
+            </form>
+            <p id="confirmationMessage" class="hidden"></p>
+        </section>
+    </main>
+    <footer>
+        <!-- Footer content -->
+    </footer>
+    <script>
+        function validateForm() {
+            var title = document.getElementById("title").value.trim();
+            var fname = document.getElementById("fname").value.trim();
+            var lname = document.getElementById("lname").value.trim();
+            var username = document.getElementById("username").value.trim();
+            var password = document.getElementById("password").value.trim();
+            var confirmPassword = document.getElementById("confirm-password").value.trim();
+            var address = document.getElementById("address").value.trim();
+            var postcode = document.getElementById("postcode").value.trim();
+            var city = document.getElementById("city").value.trim();
+            var email = document.getElementById("email").value.trim();
+            var passwordValidationResult = validatePassword(password);
+            if (passwordValidationResult !== "") {
+                document.getElementById("password-error").textContent = passwordValidationResult;
+                document.getElementById("password-error").classList.remove("hidden");
+                return false;
+            }
+            var valid = true;
+
+            if (title === "") {
+                document.getElementById("title-error").textContent = "Please enter your title.";
+                document.getElementById("title-error").classList.remove("hidden");
+                valid = false;
+            } else {
+                document.getElementById("title-error").classList.add("hidden");
+            }
+
+            if (fname === "") {
+                document.getElementById("fname-error").textContent = "Please enter your first name.";
+                document.getElementById("fname-error").classList.remove("hidden");
+                valid = false;
+            } else {
+                document.getElementById("fname-error").classList.add("hidden");
+            }
+
+            if (lname === "") {
+                document.getElementById("lname-error").textContent = "Please enter your last name.";
+                document.getElementById("lname-error").classList.remove("hidden");
+                valid = false;
+            } else {
+                document.getElementById("lname-error").classList.add("hidden");
+            }
+
+            // Add similar validation for other fields
+
+            if (username.length < 5) {
+                document.getElementById("username-error").textContent = "Username must be at least 5 characters long.";
+                document.getElementById("username-error").classList.remove("hidden");
+                valid = false;
+            } else {
+                document.getElementById("username-error").classList.add("hidden");
+            }
+
+            if (password.length < 8) {
+                document.getElementById("password-error").textContent = "Password must be at least 8 characters long.";
+                document.getElementById("password-error").classList.remove("hidden");
+                valid = false;
+            } else {
+                document.getElementById("password-error").classList.add("hidden");
+            }
+
+            if (password !== confirmPassword) {
+                document.getElementById("confirm-password-error").textContent = "Passwords do not match.";
+                document.getElementById("confirm-password-error").classList.remove("hidden");
+                valid = false;
+            } else {
+                document.getElementById("confirm-password-error").classList.add("hidden");
+            }
+
+            if (address === "") {
+                document.getElementById("address-error").textContent = "Please enter your address.";
+                document.getElementById("address-error").classList.remove("hidden");
+                valid = false;
+            } else {
+                document.getElementById("address-error").classList.add("hidden");
+            }
+
+            if (postcode === "") {
+                document.getElementById("postcode-error").textContent = "Please enter your postcode.";
+                document.getElementById("postcode-error").classList.remove("hidden");
+                valid = false;
+            } else {
+                document.getElementById("postcode-error").classList.add("hidden");
+            }
+
+            if (city === "") {
+                document.getElementById("city-error").textContent = "Please enter your city.";
+                document.getElementById("city-error").classList.remove("hidden");
+                valid = false;
+            } else {
+                document.getElementById("city-error").classList.add("hidden");
+            }
+
+            if (email === "" || !email.includes("@") || !email.includes(".")) {
+                document.getElementById("email-error").textContent = "Please enter a valid email address.";
+                document.getElementById("email-error").classList.remove("hidden");
+                valid = false;
+            } else {
+                document.getElementById("email-error").classList.add("hidden");
+            }
+
+            return valid;
+        }
+
+        function validatePassword(password) {
+            if (password === "") {
+                return "No Password was entered.";
+            } else if (password.length < 8) {
+                return "Password must be at least 8 characters long.";
+            } else if (!(/[a-z]/.test(password))) {
+                return "Password requires at least one lowercase letter.";
+            } else if (!(/[A-Z]/.test(password))) {
+                return "Password requires at least one uppercase letter.";
+            } else if (!(/[0-9]/.test(password))) {
+                return "Password requires at least one digit.";
+            }
+            return "";
+        }
+
+        function goToWelcomePage() {
+            window.location.href = "welcomePage.php";
+        }
+    </script>
+</body>
+</html>
