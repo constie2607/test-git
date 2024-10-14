@@ -180,7 +180,7 @@
 
 <script>
     function discardChanges() {
-        if (confirm("Are you sure you want to discard changes?")) {
+        if (confirm("Are you sure you want to discard changes, my guy?")) {
             window.location.href = "homepage.html";
         }
     }
